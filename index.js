@@ -1,5 +1,7 @@
 require("./list")();
 const superagent = require("superagent");
+const chalk = require('chalk');
+const log = console.log;
     var id = 0;
     async function asyncForEach(array, callback) {
         for (let index = 0; index < array.length; index++) {
@@ -13,7 +15,6 @@ const superagent = require("superagent");
         function fetch(id, link){
             superagent.get(link).end((err, response) => {
                 try {
-                console.log(id)
                 // ----------------------------- ----- -----------------------------
                 // ----------------------------- MEGYE -----------------------------
                 // ----------------------------- ----- -----------------------------
@@ -119,8 +120,7 @@ const superagent = require("superagent");
                 //console.log(lakossag); // ADATBÁZISBA ÍRHATÓ ----------------------------------------------------------
 
                 require("./db.js").DatabaseQuery(megye, jaras, varos, polgi, polgimail, cim, telefon, fax, email, lakossag);
-                console.log(varos + " kész");
-                return("done!");
+                log(chalk.bgWhite.blue.bold(chalk.magenta(id +  ": ") + varos + ": "  + chalk.green('KÉSZ!')));
               } catch(e) {
                 console.log('\n\n' + e + '\n')
                 console.log('\n' + response + '\n\n')
@@ -129,4 +129,3 @@ const superagent = require("superagent");
             await fetch(id, element);
         
     });
-    console.log('AZ ÖSSZES LISTA ELEM KÉSZ!');
